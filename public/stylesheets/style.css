@@ -2,3 +2,8 @@ form.signup,
 form.login {
   margin-top: 50px;
 }
+
+.form-area {
+  color: aqua;
+  background-color: black;
+}
