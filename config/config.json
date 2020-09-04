@@ -16,5 +16,12 @@
   "production": {
     "use_env_variable": "JAWSDB_URL",
     "dialect": "mysql"
+  },
+  "bobsComputer": {
+    "username": "root",
+    "password": "root",
+    "database": "passport_demo",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
   }
 }

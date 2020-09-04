@@ -8,6 +8,9 @@ const passport = require("./config/passport");
 const PORT = process.env.PORT || 8080;
 const db = require("./models");
 
+const stripe_private = process.env.STRIPE_API_PRIVATE_KEY;
+console.log(stripe_private);
+
 // Creating express app and configuring middleware needed for authentication
 const app = express();
 app.use(express.urlencoded({ extended: true }));
