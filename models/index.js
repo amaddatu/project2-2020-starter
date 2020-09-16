@@ -5,6 +5,7 @@ const Sequelize = require("sequelize");
 const basename = path.basename(__filename);
 // configure index.js to read environment variables to read from a .env file
 require('dotenv').config();
+console.log(process.env.NODE_ENV);
 const env = process.env.NODE_ENV || "development";
 const config = require(__dirname + "/../config/config.json")[env];
 const sequelize = config.use_env_variable ? new Sequelize(process.env[config.use_env_variable], config) : new Sequelize(config.database, config.username, config.password, config);

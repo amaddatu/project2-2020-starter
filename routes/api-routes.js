@@ -1,6 +1,9 @@
 // Requiring our models and passport as we've configured it
 const db = require("../models");
 const passport = require("../config/passport");
+require('dotenv').config();
+console.log("CLOUDINARY", process.env.CLOUDINARY_CLOUDNAME);
+console.log("CLOUDINARY", process.env.CLOUDINARY_PRESET);
 
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -46,7 +49,35 @@ module.exports = function(app) {
       // Sending back a password, even a hashed password, isn't a good idea
       res.json({
         email: req.user.email,
-        id: req.user.id
+        id: req.user.id,
+        profilePicture: req.user.profilePicture,
+        cloudUploadName: process.env.CLOUDINARY_CLOUDNAME,
+        cloudUploadPreset: process.env.CLOUDINARY_PRESET
+      });
+    }
+  });
+
+  app.put("/api/user_data", (req, res) => {
+    if (!req.user) {
+      // The user is not logged in, send back an empty object
+      res.json({});
+    } else {
+      // Otherwise send back the user's email and id
+      // Sending back a password, even a hashed password, isn't a good idea
+      const id = req.user.id;
+      //UPDATE users SET profilePicture="/.//" WHERE id = 1
+      db.User.update({
+        profilePicture: req.body.profilePicture
+      },{
+        where: {
+          id: id
+        }
+      })
+      .then( data => {
+        res.json(data);
+      })
+      .catch( err => {
+        res.json({err});
       });
     }
   });
